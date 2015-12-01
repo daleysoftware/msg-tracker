@@ -1,0 +1,4 @@
+# Sample calls, to be moved into python land.
+
+curl -s -X POST https://slack.com/api/users.list --data "token=${SLACK_TOKEN}" | python -m json.tool
+curl -s -X POST https://slack.com/api/users.getPresence --data "token=${SLACK_TOKEN}&user=U03SU3780" | python -m json.tool
