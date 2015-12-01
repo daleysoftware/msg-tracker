@@ -1,0 +1,2 @@
+REDIS_PREFIX = 'msg-tracker'
+QUERY_INTERVAL_MINUTES = 20
