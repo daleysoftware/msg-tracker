@@ -34,7 +34,6 @@ class Algorithm:
         active_points_buckets = []
         for i in range(min_epoch, max_epoch, interval_length_seconds):
             active_points_buckets.append([j for j in active_points if i <=j < i + interval_length_seconds])
-        print(active_points_buckets)
         result = []
         for active_points_bucket in active_points_buckets:
             result.append(self._compute_active_seconds_in_bucket(active_points_bucket))

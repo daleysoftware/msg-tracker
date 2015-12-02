@@ -2,7 +2,7 @@
 REDIS_PREFIX = 'msg-tracker'
 
 # The time interval used for querying the messaging endpoint.
-QUERY_INTERVAL_MINUTES = 10
+QUERY_INTERVAL_MINUTES = 5
 
 # The amount of time after which the messaging endpoint detects a user as offline and marks their
 # status as such.

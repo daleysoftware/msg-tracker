@@ -14,18 +14,19 @@ def _collect_and_log_forever(slack_client):
     """
     Collect data from slack API and log in redis. Backend handles logging format. Run forever.
     """
+    wait_minutes = msgtracker.constants.QUERY_INTERVAL_MINUTES
     try:
         logging.info("Collect and log sequence queued.")
         sample_time = datetime.datetime.utcnow()
         for user in slack_client.get_active_users():
             msgtracker.backend.log_active(user, sample_time)
     except IOError as e:
-        logging.error("IO error during collection round: %s" % e)
+        wait_minutes = 1
+        logging.error("IO error during collection round, retry soon. Error: %s" % e)
 
     # And enter on the scheduler to keep things rolling.
-    logging.info("Wait %s minutes." % msgtracker.constants.QUERY_INTERVAL_MINUTES)
-    scheduler.enter(msgtracker.constants.QUERY_INTERVAL_MINUTES * 60, 1, _collect_and_log_forever,
-                    argument=(slack_client,))
+    logging.info("Wait %s minutes." % wait_minutes)
+    scheduler.enter(wait_minutes * 60, 1, _collect_and_log_forever, argument=(slack_client,))
 
 
 def signal_handler(signum, frame):

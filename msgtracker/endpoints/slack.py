@@ -32,7 +32,7 @@ class Slack:
         logging.info("Getting active users.")
         result = []
         for member in _slack_result_to_json(self.client.api_call('users.list'))['members']:
-            if not member['deleted']:
+            if not member['deleted'] and not member['is_restricted']:
                 result.append(member['id'])
         return result
 
@@ -48,3 +48,10 @@ class Slack:
                 logging.debug("User %s is online" % user)
                 result.append(user)
         return result
+
+    def userid_to_readable(self, userid):
+        """
+        Convert a slack internal user ID to a readable name.
+        """
+        logging.debug("Resolve userid %s" % userid)
+        return _slack_result_to_json(self.client.api_call('users.info', user=userid))['user']['real_name']

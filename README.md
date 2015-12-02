@@ -20,15 +20,27 @@ are installed, run the collector as a service and the reporter periodically, as 
 
 ### Collector
 
-The collector is responsible for querying messaging endpoint for activity data and placing it into
-our backing store, redis. To run the collector, use `./tools/collect.sh`.
+The collector is responsible for querying the messaging endpoint for activity data and placing it
+into our backing store, redis. To run the collector, use
+
+```
+./tools/collect.sh
+```
 
 ### Reporter
 
 The reporter prints formatted activity data in the form of time summaries on a per user basis
-(i.e. it tells you how long a user was logged in during a given time period). To run the reporter
-use `./tools/report.sh`.
+(i.e. it tells you how long a user was logged in during a given time interval). To run the reporter
+use:
+
+```
+./tools/report.sh
+```
 
 ## Unit Tests
 
-To run unit tests use `./tools/test.sh`.
+To run unit tests use:
+
+```
+./tools/test.sh
+```

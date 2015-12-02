@@ -2,5 +2,6 @@ pytz==2015.7
 redis==2.10.5
 six==1.10.0
 slackclient==0.16
+tabulate==0.7.5
 tzlocal==1.2
 websocket-client==0.34.0
