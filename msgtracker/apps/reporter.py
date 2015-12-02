@@ -1,4 +1,5 @@
 import argparse
+import logging
 import time
 import tzlocal
 import pytz
@@ -17,12 +18,15 @@ def main(interval_length_days, max_results, timezone, slack_client):
     min_datetime = max_datetime - datetime.timedelta(days=(interval_length_days * max_results))
     max_epoch = int(time.mktime(max_datetime.timetuple()))
     min_epoch = int(time.mktime(min_datetime.timetuple()))
+    logging.debug("For this report, min_epoch: %s max_epoch %s" % (min_epoch, max_epoch))
     # Current accounts from slack.
     users = slack_client.get_users()
     table = []
     for user in users:
         active_points = msgtracker.backend.get_user_active_points(user, min_epoch, max_epoch)
+        logging.debug("%s: active points: %s" % (user, active_points))
         user_activity = algorithm.compute_active_seconds(active_points, min_epoch, max_epoch, interval_length_days * 24*60*60)
+        logging.debug("%s: corresponding activity: %s" % (user, user_activity))
         user_name = slack_client.userid_to_readable(user)
         if len(user_name) == 0:
             # Do not report on a user that doesn't have a human readable name.

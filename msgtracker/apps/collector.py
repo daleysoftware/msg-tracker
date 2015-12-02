@@ -17,7 +17,8 @@ def _collect_and_log_forever(slack_client):
     wait_minutes = msgtracker.constants.QUERY_INTERVAL_MINUTES
     try:
         logging.info("Collect and log sequence queued.")
-        sample_time = datetime.datetime.utcnow()
+        sample_time = datetime.datetime.now()
+        logging.debug("Sample time for this collection round: %s" % sample_time.strftime('%s'))
         for user in slack_client.get_active_users():
             msgtracker.backend.log_active(user, sample_time)
     except IOError as e:
