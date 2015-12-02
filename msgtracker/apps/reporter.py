@@ -27,7 +27,7 @@ def main(interval_length_days, max_results, timezone, slack_client):
         if len(user_name) == 0:
             # Do not report on a user that doesn't have a human readable name.
             continue
-        table.append([user_name] + user_activity)
+        table.append([user_name] + [round(float(sec)/60/60, 1) for sec in user_activity])
     # Pretty date headers.
     formatted_date_strings = []
     for i in range(max_results):
@@ -53,5 +53,5 @@ if __name__ == '__main__':
                         default=local_tz.tzname(None),
                         help="report timezone")
     args = parser.parse_args()
-    #msgtracker.helper.logging.init()
+    msgtracker.helper.logging.init()
     main(int(args.interval_length_days), int(args.max_intervals), pytz.timezone(args.timezone), msgtracker.endpoints.slack.Slack())

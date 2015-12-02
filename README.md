@@ -1,7 +1,5 @@
 # Msg Tracker
 
-*Work in progress.*
-
 ## Overview
 
 Msg Tracker is a service that queries various messaging services to summarize end-user active
@@ -36,6 +34,8 @@ use:
 ```
 ./tools/report.sh
 ```
+
+See [an example](./example.md).
 
 ## Unit Tests
 
